@@ -1,0 +1,27 @@
+{
+    "name": "msamgan/rpm",
+    "description": "a role, permission and menu menu manager",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "msamgan",
+            "email": "mohdsamgankhan@gmail.com"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "Msamgan\\Rpm\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Msamgan\\Rpm\\RpmServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
