@@ -23,5 +23,7 @@
         }
     },
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "msamgan/udvi": "^1.0"
+    }
 }
