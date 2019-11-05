@@ -1,4 +1,4 @@
-<li class="nav-item">
+<li class="nav-item {{ request()->is('roles') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('rpm.role.list') }}">
         <i class="fas fa-fw fa-users-cog"></i>
         <span>User Roles</span></a>

@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('Rpm/Assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    @yield('css')
+
 </head>
 
 <body id="page-top" class="sidebar-toggled">
@@ -86,6 +88,8 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('Rpm/Assets/js/sb-admin-2.min.js') }}"></script>
+
+@yield('js')
 
 </body>
 

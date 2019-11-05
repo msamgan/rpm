@@ -24,6 +24,7 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "msamgan/udvi": "^1.0"
+        "msamgan/udvi": "^1.0",
+        "yajra/laravel-datatables-oracle": "~9.0"
     }
 }
