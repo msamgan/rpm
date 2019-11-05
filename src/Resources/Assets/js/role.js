@@ -14,4 +14,19 @@ $(function () {
             {data: 'action', name: 'action'},
         ],
     });
+
+    $('#role-save').on('click', function () {
+        var roleForm = $('#role-form');
+        $.post(
+            '/store/role',
+            roleForm.serialize(),
+            function (response) {
+                if (response.status) {
+                    roleTable.draw();
+                    $("#role-form-modal").modal('hide');
+                    roleForm.get(0).reset()
+                }
+            }
+        );
+    });
 });

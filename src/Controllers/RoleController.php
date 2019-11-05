@@ -39,9 +39,43 @@ class RoleController extends Controller
             ->getList($request->all());
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function store(Request $request)
     {
         return $this->role
             ->store($request->except('_token'));
+    }
+
+    public function update(Request $request)
+    {
+        if ($this->role
+            ->updateRole(
+                $this->role->getByUuid($request->uuid),
+                $request->except('_token')
+            )) {
+            return response()->json([
+                'status' => true
+            ]);
+        }
+
+        return response()->json([
+            'status' => false
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function show(Request $request)
+    {
+        return response()->json([
+            'status' => true,
+            'data' => $this->role
+                ->getByUuid($request->uuid)
+        ]);
     }
 }

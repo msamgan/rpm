@@ -3,6 +3,7 @@
 namespace Msamgan\Rpm\Models;
 
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use msamgan\udvi\HasUuid;
@@ -18,6 +19,15 @@ class Role extends Model
 
     protected $guarded = [];
 
+
+    /**
+     * @return string
+     */
+    /*public function getRouteKeyName()
+    {
+        return 'uuid';
+    }*/
+
     /**
      * @param $data
      * @return JsonResponse
@@ -28,8 +38,30 @@ class Role extends Model
         return DataTables::eloquent(
             Role::query()
         )->addColumn('action', function (Role $role) {
-            return '';
+            return $role->editRole() . $role->deleteRole();
         })->make(true);
+    }
+
+    /**
+     * @return string
+     */
+    private function editRole()
+    {
+        return '<button type="button" class="btn btn-primary btn-sm btn-sm btn-icon-split edit-role" data-id="' . $this->uuid . '">
+                        <span class="icon text-white-50"><i class="fa fa-edit"></i></span>
+                        <span class="text">Edit</span>
+                    </button>';
+    }
+
+    /**
+     * @return string
+     */
+    private function deleteRole()
+    {
+        return '<button type="button" class="btn btn-danger btn-sm btn-sm btn-icon-split ml-2">
+                        <span class="icon text-white-50"><i class="fa fa-trash"></i></span>
+                        <span class="text">Delete</span>
+                    </button>';
     }
 
     /**
@@ -38,14 +70,42 @@ class Role extends Model
      */
     public function store($data)
     {
-        if (Role::query()->create($data)) {
+        try {
+            if (Role::query()->create($data)) {
+                return response()->json([
+                    'status' => true
+                ]);
+            }
+        } catch (Exception $e) {
             return response()->json([
-                'status' => true
+                'status' => false,
+                'errorCode' => $e->getCode()
             ]);
         }
+    }
 
-        return response()->json([
-            'status' => false
-        ]);
+    /**
+     * @param $role
+     * @param $data
+     * @return bool
+     */
+    public function updateRole($role, $data)
+    {
+        if ($role->update($data)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $uuid
+     * @return Builder|Model|object|null
+     */
+    public function getByUuid($uuid)
+    {
+        return Role::query()
+            ->where('uuid', $uuid)
+            ->first();
     }
 }
