@@ -8,9 +8,15 @@ use Illuminate\Http\JsonResponse;
 use msamgan\udvi\HasUuid;
 use Yajra\DataTables\Facades\DataTables;
 
+/**
+ * Class Role
+ * @package Msamgan\Rpm\Models
+ */
 class Role extends Model
 {
     Use HasUuid;
+
+    protected $guarded = [];
 
     /**
      * @param $data
@@ -21,6 +27,25 @@ class Role extends Model
     {
         return DataTables::eloquent(
             Role::query()
-        )->make(true);
+        )->addColumn('action', function (Role $role) {
+            return '';
+        })->make(true);
+    }
+
+    /**
+     * @param $data
+     * @return JsonResponse
+     */
+    public function store($data)
+    {
+        if (Role::query()->create($data)) {
+            return response()->json([
+                'status' => true
+            ]);
+        }
+
+        return response()->json([
+            'status' => false
+        ]);
     }
 }

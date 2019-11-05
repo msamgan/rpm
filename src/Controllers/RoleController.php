@@ -38,4 +38,10 @@ class RoleController extends Controller
         return $this->role
             ->getList($request->all());
     }
+
+    public function store(Request $request)
+    {
+        return $this->role
+            ->store($request->except('_token'));
+    }
 }

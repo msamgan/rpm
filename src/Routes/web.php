@@ -13,3 +13,8 @@ Route::get(
     '/load/roles',
     $controllerNamespace . 'RoleController@load'
 )->name('rpm.role.load.list');
+
+Route::post(
+    '/store/role',
+    $controllerNamespace . 'RoleController@store'
+)->name('rpm.role.store');
