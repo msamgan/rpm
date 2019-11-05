@@ -51,24 +51,15 @@ class RoleController extends Controller
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return bool
      */
     public function update(Request $request)
     {
-        if ($this->role
+        return $this->role
             ->updateRole(
                 $this->role->getByUuid($request->uuid),
                 $request->except('_token')
-            )) {
-
-            return response()->json([
-                'status' => true
-            ]);
-        }
-
-        return response()->json([
-            'status' => false
-        ]);
+            );
     }
 
     /**

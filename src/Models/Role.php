@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use msamgan\udvi\HasUuid;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -18,6 +20,14 @@ class Role extends Model
     Use HasUuid;
 
     protected $guarded = [];
+
+    protected $validationRules = [
+        'name' => [
+            'required',
+            'unique:roles',
+            'max:255'
+        ]
+    ];
 
 
     /**
@@ -70,41 +80,56 @@ class Role extends Model
      */
     public function store($data)
     {
-        try {
+        $validatedData = Validator::make(
+            $data, $this->validationRules
+        );
 
-            if (Role::query()->create($data)) {
-                return response()->json([
-                    'status' => true
-                ]);
-            }
-
-        } catch (Exception $e) {
-
-            $message = 'Something went wrong, try again later.';
-            if ($e->getCode() == 23000) {
-                $message = "Duplicate entry, please change role name";
-            }
-
+        if ($validatedData->fails()) {
             return response()->json([
                 'status' => false,
-                'errorCode' => $e->getCode(),
-                'message' => $message
+                'message' => $validatedData->errors()->first()
+            ]);
+        }
+
+        if (Role::query()->create($data)) {
+            return response()->json([
+                'status' => true
             ]);
         }
     }
 
     /**
-     * @param $role
+     * @param Role $role
      * @param $data
-     * @return bool
+     * @return JsonResponse
      */
     public function updateRole(Role $role, $data)
     {
-        if ($role->update($data)) {
-            return true;
+        array_push(
+            $this->validationRules['name'],
+            Rule::unique('roles')->ignore($role->id)
+        );
+
+        $validatedData = Validator::make(
+            $data, $this->validationRules
+        );
+
+        if ($validatedData->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => $validatedData->errors()->first()
+            ]);
         }
 
-        return false;
+        if ($role->update($data)) {
+            return response()->json([
+                'status' => true,
+            ]);
+        }
+
+        return response()->json([
+            'status' => false,
+        ]);
     }
 
     /**
