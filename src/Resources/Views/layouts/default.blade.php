@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('Rpm/Assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css') }}">
 
     @yield('css')
 
@@ -88,6 +89,7 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{ asset('Rpm/Assets/js/sb-admin-2.min.js') }}"></script>
+<script src="{{ url('https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js') }}"></script>
 
 @yield('js')
 

@@ -71,15 +71,24 @@ class Role extends Model
     public function store($data)
     {
         try {
+
             if (Role::query()->create($data)) {
                 return response()->json([
                     'status' => true
                 ]);
             }
+
         } catch (Exception $e) {
+
+            $message = 'Something went wrong, try again later.';
+            if ($e->getCode() == 23000) {
+                $message = "Duplicate entry, please change role name";
+            }
+
             return response()->json([
                 'status' => false,
-                'errorCode' => $e->getCode()
+                'errorCode' => $e->getCode(),
+                'message' => $message
             ]);
         }
     }
@@ -89,7 +98,7 @@ class Role extends Model
      * @param $data
      * @return bool
      */
-    public function updateRole($role, $data)
+    public function updateRole(Role $role, $data)
     {
         if ($role->update($data)) {
             return true;

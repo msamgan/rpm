@@ -49,6 +49,10 @@ class RoleController extends Controller
             ->store($request->except('_token'));
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function update(Request $request)
     {
         if ($this->role
@@ -56,6 +60,7 @@ class RoleController extends Controller
                 $this->role->getByUuid($request->uuid),
                 $request->except('_token')
             )) {
+
             return response()->json([
                 'status' => true
             ]);
