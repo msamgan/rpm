@@ -18,6 +18,11 @@ Route::get(
     $controllerNamespace . 'RoleController@show'
 )->name('rpm.role.show');
 
+Route::get(
+    '/role/delete/{uuid}',
+    $controllerNamespace . 'RoleController@destroy'
+)->name('rpm.role.delete');
+
 Route::post(
     '/store/role',
     $controllerNamespace . 'RoleController@store'

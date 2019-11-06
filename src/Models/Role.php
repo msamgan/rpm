@@ -22,19 +22,11 @@ class Role extends Model
     protected $guarded = [];
 
     /**
-     * @return string
-     */
-    /*public function getRouteKeyName()
-    {
-        return 'uuid';
-    }*/
-
-    /**
      * @param $data
      * @return JsonResponse
      * @throws Exception
      */
-    public function getList($data)
+    public function getList($data): JsonResponse
     {
         return DataTables::eloquent(
             Role::query()
@@ -46,7 +38,7 @@ class Role extends Model
     /**
      * @return string
      */
-    private function editRole()
+    private function editRole(): string
     {
         return '<button type="button" class="btn btn-primary btn-sm btn-sm btn-icon-split edit-role" data-id="' . $this->uuid . '">
                         <span class="icon text-white-50"><i class="fa fa-edit"></i></span>
@@ -57,9 +49,9 @@ class Role extends Model
     /**
      * @return string
      */
-    private function deleteRole()
+    private function deleteRole(): string
     {
-        return '<button type="button" class="btn btn-danger btn-sm btn-sm btn-icon-split ml-2">
+        return '<button type="button" class="btn btn-danger btn-sm btn-sm btn-icon-split ml-2 delete-role" data-id="' . $this->uuid . '">
                         <span class="icon text-white-50"><i class="fa fa-trash"></i></span>
                         <span class="text">Delete</span>
                     </button>';
@@ -69,7 +61,7 @@ class Role extends Model
      * @param $data
      * @return JsonResponse
      */
-    public function store($data)
+    public function store($data): JsonResponse
     {
         $validatedData = Validator::make(
             $data, [
@@ -100,7 +92,7 @@ class Role extends Model
      * @param $data
      * @return JsonResponse
      */
-    public function updateRole(Role $role, $data)
+    public function updateRole(Role $role, $data): JsonResponse
     {
         $validatedData = Validator::make(
             $data, [
@@ -133,9 +125,9 @@ class Role extends Model
 
     /**
      * @param $uuid
-     * @return Builder|Model|object|null
+     * @return Role|Builder|Model|object|null
      */
-    public function getByUuid($uuid)
+    public function getByUuid($uuid): Role
     {
         return Role::query()
             ->where('uuid', $uuid)

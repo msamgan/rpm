@@ -33,7 +33,7 @@ class RoleController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function load(Request $request)
+    public function load(Request $request): JsonResponse
     {
         return $this->role
             ->getList($request->all());
@@ -43,7 +43,7 @@ class RoleController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         return $this->role
             ->store($request->except('_token'));
@@ -51,9 +51,9 @@ class RoleController extends Controller
 
     /**
      * @param Request $request
-     * @return bool
+     * @return JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request): JsonResponse
     {
         return $this->role
             ->updateRole(
@@ -66,12 +66,42 @@ class RoleController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function show(Request $request)
+    public function show(Request $request): JsonResponse
     {
         return response()->json([
             'status' => true,
             'data' => $this->role
                 ->getByUuid($request->uuid)
         ]);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function destroy(Request $request)
+    {
+        $role = $this->role
+            ->getByUuid($request->uuid);
+
+        try {
+
+            if ($role->delete()) {
+                return response()->json([
+                    'status' => true
+                ]);
+            }
+
+            return response()->json([
+                'status' => false
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'errorCode' => $e->getCode()
+            ]);
+        }
     }
 }
