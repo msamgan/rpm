@@ -4,7 +4,7 @@
  */
 
 Route::get('/roles', function () {
-    return view('rpm::roles');
+    return view('rpm::role.roles');
 })->name('rpm.role.list');
 
 Route::get(
