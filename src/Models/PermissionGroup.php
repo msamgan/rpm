@@ -5,6 +5,7 @@ namespace Msamgan\Rpm\Models;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -18,6 +19,14 @@ class PermissionGroup extends Model
     protected $guarded = [];
 
     /**
+     * @return HasMany
+     */
+    public function permissions()
+    {
+        return $this->hasMany(Permission::class);
+    }
+
+    /**
      * @param $data
      * @return JsonResponse
      * @throws Exception
@@ -27,14 +36,14 @@ class PermissionGroup extends Model
         return DataTables::eloquent(
             PermissionGroup::query()
         )->addColumn('action', function (PermissionGroup $permissionGroup) {
-            return $permissionGroup->editRole() . $permissionGroup->deleteRole();
+            return $permissionGroup->editPermissionGroup() . $permissionGroup->deletePermissionGroup();
         })->make(true);
     }
 
     /**
      * @return string
      */
-    private function editRole(): string
+    private function editPermissionGroup(): string
     {
         return '<button type="button" class="btn btn-primary btn-sm btn-sm btn-icon-split edit-permission-group" data-id="' . $this->uuid . '">
                         <span class="icon text-white-50"><i class="fa fa-edit"></i></span>
@@ -45,7 +54,7 @@ class PermissionGroup extends Model
     /**
      * @return string
      */
-    private function deleteRole(): string
+    private function deletePermissionGroup(): string
     {
         return '<button type="button" class="btn btn-danger btn-sm btn-sm btn-icon-split ml-2 delete-permission-group" data-id="' . $this->uuid . '">
                         <span class="icon text-white-50"><i class="fa fa-trash"></i></span>
@@ -92,7 +101,7 @@ class PermissionGroup extends Model
      * @param $data
      * @return JsonResponse
      */
-    public function updateRole(PermissionGroup $permissionGroup, $data): JsonResponse
+    public function updatePermissionGroup(PermissionGroup $permissionGroup, $data): JsonResponse
     {
         $validatedData = Validator::make(
             $data, [

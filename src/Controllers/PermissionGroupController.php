@@ -56,7 +56,7 @@ class PermissionGroupController extends Controller
     public function update(Request $request): JsonResponse
     {
         return $this->permissionGroup
-            ->updateRole(
+            ->updatePermissionGroup(
                 $this->permissionGroup->getByUuid($request->uuid),
                 $request->except('_token')
             );
@@ -82,12 +82,12 @@ class PermissionGroupController extends Controller
      */
     public function destroy(Request $request)
     {
-        $role = $this->permissionGroup
+        $permissionGroup = $this->permissionGroup
             ->getByUuid($request->uuid);
 
         try {
 
-            if ($role->delete()) {
+            if ($permissionGroup->delete()) {
                 return response()->json([
                     'status' => true
                 ]);

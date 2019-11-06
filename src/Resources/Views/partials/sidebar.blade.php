@@ -15,7 +15,8 @@
             <h6 class="collapse-header">Custom Permissions:</h6>
             <a class="collapse-item {{ request()->is('permission-groups') ? 'active' : '' }}"
                href="{{ route('rpm.permission-group.list') }}">Permission Groups</a>
-            <a class="collapse-item {{ request()->is('permissions') ? 'active' : '' }}" href="">Permissions</a>
+            <a class="collapse-item {{ request()->is('permissions') ? 'active' : '' }}"
+               href="{{ route('rpm.permission.list') }}">Permissions</a>
         </div>
     </div>
 </li>
