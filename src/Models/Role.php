@@ -21,15 +21,6 @@ class Role extends Model
 
     protected $guarded = [];
 
-    protected $validationRules = [
-        'name' => [
-            'required',
-            'unique:roles',
-            'max:255'
-        ]
-    ];
-
-
     /**
      * @return string
      */
@@ -81,7 +72,13 @@ class Role extends Model
     public function store($data)
     {
         $validatedData = Validator::make(
-            $data, $this->validationRules
+            $data, [
+                'name' => [
+                    'required',
+                    'unique:roles',
+                    'max:255'
+                ]
+            ]
         );
 
         if ($validatedData->fails()) {
@@ -105,19 +102,21 @@ class Role extends Model
      */
     public function updateRole(Role $role, $data)
     {
-        array_push(
-            $this->validationRules['name'],
-            Rule::unique('roles')->ignore($role->id)
-        );
-
         $validatedData = Validator::make(
-            $data, $this->validationRules
+            $data, [
+                'name' => [
+                    'required',
+                    'max:255',
+                    Rule::unique('roles')->ignore($role->id)
+                ]
+            ]
         );
 
         if ($validatedData->fails()) {
             return response()->json([
                 'status' => false,
-                'message' => $validatedData->errors()->first()
+                'message' => $validatedData->errors()
+                    ->first()
             ]);
         }
 
