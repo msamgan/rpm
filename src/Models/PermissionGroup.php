@@ -11,11 +11,7 @@ use Illuminate\Validation\Rule;
 use msamgan\udvi\HasUuid;
 use Yajra\DataTables\Facades\DataTables;
 
-/**
- * Class Role
- * @package Msamgan\Rpm\Models
- */
-class Role extends Model
+class PermissionGroup extends Model
 {
     Use HasUuid;
 
@@ -29,9 +25,9 @@ class Role extends Model
     public function getList($data): JsonResponse
     {
         return DataTables::eloquent(
-            Role::query()
-        )->addColumn('action', function (Role $role) {
-            return $role->editRole() . $role->deleteRole();
+            PermissionGroup::query()
+        )->addColumn('action', function (PermissionGroup $permissionGroup) {
+            return $permissionGroup->editRole() . $permissionGroup->deleteRole();
         })->make(true);
     }
 
@@ -67,7 +63,7 @@ class Role extends Model
             $data, [
                 'name' => [
                     'required',
-                    'unique:roles',
+                    'unique:permission_groups',
                     'max:255'
                 ]
             ]
@@ -80,7 +76,7 @@ class Role extends Model
             ]);
         }
 
-        if (Role::query()->create($data)) {
+        if (PermissionGroup::query()->create($data)) {
             return response()->json([
                 'status' => true
             ]);
@@ -92,18 +88,19 @@ class Role extends Model
     }
 
     /**
-     * @param Role $role
+     * @param PermissionGroup $permissionGroup
      * @param $data
      * @return JsonResponse
      */
-    public function updateRole(Role $role, $data): JsonResponse
+    public function updateRole(PermissionGroup $permissionGroup, $data): JsonResponse
     {
         $validatedData = Validator::make(
             $data, [
                 'name' => [
                     'required',
                     'max:255',
-                    Rule::unique('roles')->ignore($role->id)
+                    Rule::unique('permission_groups')
+                        ->ignore($permissionGroup->id)
                 ]
             ]
         );
@@ -116,7 +113,7 @@ class Role extends Model
             ]);
         }
 
-        if ($role->update($data)) {
+        if ($permissionGroup->update($data)) {
             return response()->json([
                 'status' => true,
             ]);
@@ -129,11 +126,11 @@ class Role extends Model
 
     /**
      * @param $uuid
-     * @return Role|Builder|Model|object|null
+     * @return PermissionGroup|Builder|Model|object|null
      */
-    public function getByUuid($uuid): Role
+    public function getByUuid($uuid): PermissionGroup
     {
-        return Role::query()
+        return PermissionGroup::query()
             ->where('uuid', $uuid)
             ->first();
     }
