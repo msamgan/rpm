@@ -38,4 +38,70 @@ class PermissionGroupController extends Controller
         return $this->permissionGroup
             ->getList($request->all());
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function store(Request $request): JsonResponse
+    {
+        return $this->permissionGroup
+            ->store($request->except('_token'));
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update(Request $request): JsonResponse
+    {
+        return $this->permissionGroup
+            ->updateRole(
+                $this->permissionGroup->getByUuid($request->uuid),
+                $request->except('_token')
+            );
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function show(Request $request): JsonResponse
+    {
+        return response()->json([
+            'status' => true,
+            'data' => $this->permissionGroup
+                ->getByUuid($request->uuid)
+        ]);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function destroy(Request $request)
+    {
+        $role = $this->permissionGroup
+            ->getByUuid($request->uuid);
+
+        try {
+
+            if ($role->delete()) {
+                return response()->json([
+                    'status' => true
+                ]);
+            }
+
+            return response()->json([
+                'status' => false
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'errorCode' => $e->getCode()
+            ]);
+        }
+    }
 }

@@ -36,7 +36,7 @@ class PermissionGroup extends Model
      */
     private function editRole(): string
     {
-        return '<button type="button" class="btn btn-primary btn-sm btn-sm btn-icon-split edit-role" data-id="' . $this->uuid . '">
+        return '<button type="button" class="btn btn-primary btn-sm btn-sm btn-icon-split edit-permission-group" data-id="' . $this->uuid . '">
                         <span class="icon text-white-50"><i class="fa fa-edit"></i></span>
                         <span class="text">Edit</span>
                     </button>';
@@ -47,7 +47,7 @@ class PermissionGroup extends Model
      */
     private function deleteRole(): string
     {
-        return '<button type="button" class="btn btn-danger btn-sm btn-sm btn-icon-split ml-2 delete-role" data-id="' . $this->uuid . '">
+        return '<button type="button" class="btn btn-danger btn-sm btn-sm btn-icon-split ml-2 delete-permission-group" data-id="' . $this->uuid . '">
                         <span class="icon text-white-50"><i class="fa fa-trash"></i></span>
                         <span class="text">Delete</span>
                     </button>';

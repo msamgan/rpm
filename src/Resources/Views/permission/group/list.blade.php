@@ -13,7 +13,7 @@
         <h1 class="h3 mb-4 text-gray-800">Permission Group</h1>
         <p class="mb-4">Listing all the available permission groups in the system</p>
 
-        <button class="btn btn-primary btn-sm btn-icon-split mb-4" id="add-role-btn" data-toggle="modal"
+        <button class="btn btn-primary btn-sm btn-icon-split mb-4" id="add-permission-group-btn" data-toggle="modal"
                 data-target="#permission-group-form-modal">
             <span class="icon text-white-50"><i class="fa fa-plus"></i></span>
             <span class="text">Add Permission Group</span>
@@ -24,7 +24,7 @@
     </div>
     <!-- /.container-fluid -->
 
-    {{--@include('rpm::role.form')--}}
+    @include('rpm::permission.group.form')
 
 @endsection
 
