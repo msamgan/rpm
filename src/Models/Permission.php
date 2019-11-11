@@ -75,6 +75,9 @@ class Permission extends Model
                     'unique:permissions',
                     'max:255'
                 ],
+                'permission_group_id' => [
+                    'required',
+                ],
                 'route_name' => [
                     'required',
                     'max:255'
@@ -113,6 +116,9 @@ class Permission extends Model
                     'required',
                     'max:255',
                     Rule::unique('permissions')->ignore($permission->id)
+                ],
+                'permission_group_id' => [
+                    'required',
                 ],
                 'route_name' => [
                     'required',

@@ -9,6 +9,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Route Name</th>
                     <th>Description</th>
                     <th>Actions</th>
                 </tr>
@@ -17,6 +18,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Route Name</th>
                     <th>Description</th>
                     <th>Actions</th>
                 </tr>

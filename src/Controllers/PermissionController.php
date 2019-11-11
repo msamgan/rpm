@@ -4,9 +4,12 @@ namespace Msamgan\Rpm\Controllers;
 
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Msamgan\Rpm\Models\Permission;
+use Msamgan\Rpm\Models\PermissionGroup;
 
 /**
  * Class PermissionController
@@ -20,12 +23,29 @@ class PermissionController extends Controller
     protected $permission;
 
     /**
+     * @var PermissionGroup
+     */
+    protected $permissionGroup;
+
+    /**
      * PermissionController constructor.
      * @param Permission $permission
+     * @param PermissionGroup $permissionGroup
      */
-    public function __construct(Permission $permission)
+    public function __construct(Permission $permission, PermissionGroup $permissionGroup)
     {
         $this->permission = $permission;
+        $this->permissionGroup = $permissionGroup;
+    }
+
+    /**
+     * @return Factory|View
+     */
+    public function index()
+    {
+        return view('rpm::permission.permission.list')->with([
+            'permissionGroups' => $this->permissionGroup->getAll()
+        ]);
     }
 
     /**
