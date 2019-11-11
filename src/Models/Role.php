@@ -31,8 +31,19 @@ class Role extends Model
         return DataTables::eloquent(
             Role::query()
         )->addColumn('action', function (Role $role) {
-            return $role->editRole() . $role->deleteRole();
+            return $role->assignPermission() . $role->editRole() . $role->deleteRole();
         })->make(true);
+    }
+
+    /**
+     * @return string
+     */
+    private function assignPermission(): string
+    {
+        return '<a href="' . url('/assign/' . $this->uuid) . '" class="btn btn-warning btn-sm btn-sm btn-icon-split mr-2">
+                        <span class="icon text-white-50"><i class="fa fa-plus"></i></span>
+                        <span class="text">Assign Permission</span>
+                    </a>';
     }
 
     /**
