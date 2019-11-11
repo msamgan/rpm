@@ -22,6 +22,14 @@ class Role extends Model
     protected $guarded = [];
 
     /**
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
+
+    /**
      * @param $data
      * @return JsonResponse
      * @throws Exception
