@@ -16,6 +16,9 @@ class AssignController extends Controller
      */
     protected $role;
 
+    /**
+     * @var Permission
+     */
     protected $permission;
 
     /**
@@ -39,5 +42,10 @@ class AssignController extends Controller
             'permissions' => $this->permission->getAll()
                 ->groupBy('permission_group_id')
         ]);
+    }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
     }
 }

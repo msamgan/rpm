@@ -18,45 +18,48 @@
                 <h6 class="m-0 font-weight-bold text-primary">Assign Permission</h6>
             </div>
             <div class="card-body">
-                <div class="row">
-                    @foreach($permissions as $key => $group)
-                        <div class="col-md-6">
-                            <button class="btn btn-primary mb-2" type="button" data-toggle="collapse"
-                                    data-target="#collapse-{{ $key }}" aria-expanded="false"
-                                    aria-controls="collapse-{{ $key }}">
-                                {{ $key }}
-                            </button>
-                            <div class="collapse mt-2 show" id="collapse-{{ $key }}">
-                                <div class="card card-body">
-                                    @foreach($group as $permission)
-                                        <div class="row mt-2">
-                                            <div class="col-md-4">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"
-                                                           value="{{ $permission->id }}"
-                                                           name="permissions[]"
-                                                           id="check-{{ $permission->id }}">
-                                                    <label class="form-check-label" for="check-{{ $permission->id }}">
-                                                        {{ $permission->name }}
-                                                    </label>
+                <form id="permission-assign-form" data-role-id="{{ $role->uuid }}" >
+                    <div class="row">
+                        @foreach($permissions as $key => $group)
+                            <div class="col-md-6">
+                                <button class="btn btn-primary mb-2" type="button" data-toggle="collapse"
+                                        data-target="#collapse-{{ $key }}" aria-expanded="false"
+                                        aria-controls="collapse-{{ $key }}">
+                                    {{ fetchPermissionGroupById($key)->name }}
+                                </button>
+                                <div class="collapse mt-2 show" id="collapse-{{ $key }}">
+                                    <div class="card card-body">
+                                        @foreach($group as $permission)
+                                            <div class="row mt-2">
+                                                <div class="col-md-4">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               value="{{ $permission->id }}"
+                                                               name="permissions[]"
+                                                               id="check-{{ $permission->id }}">
+                                                        <label class="form-check-label"
+                                                               for="check-{{ $permission->id }}">
+                                                            {{ $permission->name }}
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="row mt-5">
-                    <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary btn-sm btn-icon-split" id="role-save"
-                                data-action="add">
-                            <span class="icon text-white-50"><i class="fa fa-save"></i></span>
-                            <span class="text">Assign to {{ $role->name }}</span>
-                        </button>
+                        @endforeach
                     </div>
-                </div>
+                    <div class="row mt-5">
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary btn-sm btn-icon-split" id="role-save"
+                                    data-action="add">
+                                <span class="icon text-white-50"><i class="fa fa-save"></i></span>
+                                <span class="text">Assign to {{ $role->name }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -65,5 +68,12 @@
 @endsection
 
 @section('js')
-
+    <script>
+        $('#permission-assign-form').on('submit', function (e) {
+            e.preventDefault();
+            $.post('/assign/' + $(this).data('role-id'), $(this).serialize(), function (response) {
+                console.log(response);
+            });
+        })
+    </script>
 @endsection

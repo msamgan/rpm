@@ -9,11 +9,13 @@
             "email": "mohdsamgankhan@gmail.com"
         }
     ],
-
     "autoload": {
         "psr-4": {
             "Msamgan\\Rpm\\": "src/"
-        }
+        },
+        "files": [
+            "src/rpmMethods.php"
+        ]
     },
     "extra": {
         "laravel": {
