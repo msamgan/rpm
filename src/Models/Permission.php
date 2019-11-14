@@ -45,7 +45,9 @@ class Permission extends Model
     {
         return DataTables::eloquent(
             Permission::query()
-        )->addColumn('action', function (Permission $permission) {
+        )->addColumn('group_name', function (Permission $permission) {
+            return $permission->permissionGroup->name;
+        })->addColumn('action', function (Permission $permission) {
             return $permission->editPermission() . $permission->deletePermission();
         })->make(true);
     }
