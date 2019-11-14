@@ -20,8 +20,6 @@ class RpmMiddleware
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
-
         if (!Auth::check()) {
             return redirect('/login');
         }
@@ -31,9 +29,11 @@ class RpmMiddleware
 
         $allowed = false;
         foreach ($permissions as $permission) {
-            if ($request->route()->getName() == Permission::query()->find($permission)->route_name) {
-                $allowed = true;
-                break;
+            foreach (Permission::query()->find($permission)->permissionRoutes as $route) {
+                if ($request->route()->getName() == $route->route_name) {
+                    $allowed = true;
+                    break;
+                }
             }
         }
 

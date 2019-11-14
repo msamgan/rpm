@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['web', 'rpm']], function () {
 
     /**
      * namespace of the Rpm Controllers.
