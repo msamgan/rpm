@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -25,6 +26,14 @@ class Permission extends Model
     public function permissionGroup()
     {
         return $this->belongsTo(PermissionGroup::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function permissionRoutes()
+    {
+        return $this->hasMany(PermissionRoute::class);
     }
 
 
@@ -47,9 +56,15 @@ class Permission extends Model
             Permission::query()
         )->addColumn('group_name', function (Permission $permission) {
             return $permission->permissionGroup->name;
+        })->addColumn('route_name', function (Permission $permission) {
+            $routeNames = [];
+            foreach ($permission->permissionRoutes as $permissionRoute){
+                $routeNames[] = $permissionRoute->route_name;
+            }
+            return implode('<br>', $routeNames);
         })->addColumn('action', function (Permission $permission) {
             return $permission->editPermission() . $permission->deletePermission();
-        })->make(true);
+        })->rawColumns(['route_name', 'action'])->make(true);
     }
 
     /**
@@ -104,7 +119,21 @@ class Permission extends Model
             ]);
         }
 
-        if (Permission::query()->create($data)) {
+        $routeNames = $data['route_name'];
+        unset($data['route_name']);
+
+        $permission = Permission::query()
+            ->create($data);
+
+        if ($permission) {
+
+            foreach ($routeNames as $routeName) {
+                PermissionRoute::query()->create([
+                    'permission_id' => $permission->id,
+                    'route_name' => $routeName
+                ]);
+            }
+
             return response()->json([
                 'status' => true
             ]);
