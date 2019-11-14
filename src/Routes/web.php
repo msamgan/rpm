@@ -1,12 +1,10 @@
 <?php
 
-/**
- * namespace of the Rpm Controllers.
- */
-
-
 Route::group(['middleware' => ['web']], function () {
 
+    /**
+     * namespace of the Rpm Controllers.
+     */
     $controllerNamespace = 'Msamgan\Rpm\Controllers\\';
 
     include "role.php";
