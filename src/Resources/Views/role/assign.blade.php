@@ -18,7 +18,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Assign Permission</h6>
             </div>
             <div class="card-body">
-                <form id="permission-assign-form" data-role-id="{{ $role->uuid }}" >
+                <form id="permission-assign-form" data-role-id="{{ $role->uuid }}">
                     <div class="row">
                         @foreach($permissions as $key => $group)
                             <div class="col-md-6">
@@ -35,6 +35,7 @@
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox"
                                                                value="{{ $permission->id }}"
+                                                               @if(in_array($permission->id, $rolePermissions)){{ 'checked' }}@endif
                                                                name="permissions[]"
                                                                id="check-{{ $permission->id }}">
                                                         <label class="form-check-label"
@@ -52,11 +53,14 @@
                     </div>
                     <div class="row mt-5">
                         <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary btn-sm btn-icon-split" id="role-save"
-                                    data-action="add">
+                            <button type="submit" class="btn btn-primary btn-sm btn-icon-split">
                                 <span class="icon text-white-50"><i class="fa fa-save"></i></span>
                                 <span class="text">Assign to {{ $role->name }}</span>
                             </button>
+                            <a href="{{ route('rpm.role.list') }}" class="btn btn-warning btn-sm btn-icon-split">
+                                <span class="icon text-white-50"><i class="fa fa-arrow-left"></i></span>
+                                <span class="text">Back</span>
+                            </a>
                         </div>
                     </div>
                 </form>
@@ -68,12 +72,5 @@
 @endsection
 
 @section('js')
-    <script>
-        $('#permission-assign-form').on('submit', function (e) {
-            e.preventDefault();
-            $.post('/assign/' + $(this).data('role-id'), $(this).serialize(), function (response) {
-                console.log(response);
-            });
-        })
-    </script>
+    <script src="{{ asset('Rpm/Assets/js/assign.js') }}"></script>
 @endsection

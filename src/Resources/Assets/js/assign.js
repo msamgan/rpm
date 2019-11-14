@@ -1,0 +1,1 @@
+$("#permission-assign-form").on("submit",function(n){n.preventDefault();var t=$(this);$.confirm({theme:"dark",title:"Confirm!",content:"Are you sure!",buttons:{confirm:{btnClass:"btn-red",action:function(){$.post("/assign/"+t.data("role-id"),t.serialize(),function(n){$.alert(n.message)})}},cancel:function(){}}})});
