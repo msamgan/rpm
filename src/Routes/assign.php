@@ -8,7 +8,7 @@
 Route::get(
     '/assign/{roleUuid}',
     $controllerNamespace . 'AssignController@form'
-)->name('rpm.assign')->middleware('rpm');
+)->name('rpm.assign');
 
 Route::post(
     '/assign/{roleUuid}',

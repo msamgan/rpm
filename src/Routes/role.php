@@ -5,7 +5,7 @@
 
 Route::get('/roles', function () {
     return view('rpm::role.list');
-})->name('rpm.role.list')->middleware('rpm');
+})->name('rpm.role.list');
 
 Route::get(
     '/load/roles',
