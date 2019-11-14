@@ -3,7 +3,9 @@
 namespace Msamgan\Rpm\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Msamgan\Rpm\Models\Permission;
 use Msamgan\Rpm\Models\Role;
 
@@ -28,10 +30,14 @@ class AssignController extends Controller
 
     /**
      * @param Request $request
+     * @return Factory|View
      */
     public function form(Request $request)
     {
-        $role = $this->role->getByUuid($request->roleUuid);
-        $permissions = $this->permission->getAll()->groupBy('permission_group_id');
+        return view('rpm::role.assign')->with([
+            'role' => $this->role->getByUuid($request->roleUuid),
+            'permissions' => $this->permission->getAll()
+                ->groupBy('permission_group_id')
+        ]);
     }
 }
