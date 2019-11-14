@@ -38,13 +38,14 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group" id="more-route-name-section">
+                            <div class="form-group">
                                 <label for="name">Route Name<sup class="text-danger">*</sup></label>
                                 <input type="text" class="form-control" id="routeName" name="route_name[]"
                                        aria-describedby="nameHelp"
                                        required
                                        placeholder="Name of the Route permission to be applied">
                                 <small id="nameHelp" class="form-text text-muted">Name of the Route permission to be applied.</small>
+                                <div  id="more-route-name-section" ></div>
                             </div>
                             <small style="float: right; cursor: pointer; color: blue" class="form-text mt-2" id="add-more-route-name" >Add More</small>
                         </div>

@@ -58,7 +58,7 @@ class Permission extends Model
             return $permission->permissionGroup->name;
         })->addColumn('route_name', function (Permission $permission) {
             $routeNames = [];
-            foreach ($permission->permissionRoutes as $permissionRoute){
+            foreach ($permission->permissionRoutes as $permissionRoute) {
                 $routeNames[] = $permissionRoute->route_name;
             }
             return implode('<br>', $routeNames);
@@ -176,7 +176,22 @@ class Permission extends Model
             ]);
         }
 
+        $routeNames = $data['route_name'];
+        unset($data['route_name']);
+
         if ($permission->update($data)) {
+
+            PermissionRoute::query()
+                ->where('permission_id', $permission->id)
+                ->delete();
+
+            foreach ($routeNames as $routeName) {
+                PermissionRoute::query()->create([
+                    'permission_id' => $permission->id,
+                    'route_name' => $routeName
+                ]);
+            }
+
             return response()->json([
                 'status' => true,
             ]);
@@ -195,6 +210,7 @@ class Permission extends Model
     {
         return Permission::query()
             ->where('uuid', $uuid)
+            ->with(['permissionRoutes'])
             ->first();
     }
 }
