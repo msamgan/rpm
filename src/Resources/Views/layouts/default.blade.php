@@ -9,6 +9,8 @@
     <meta content="manages roles, permission and menus" name="rpm">
     <meta content="" name="mohd. Samgan Khan">
 
+    <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
+
     <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
@@ -20,6 +22,8 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('Rpm/Assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css') }}">
+
+
 
     @yield('css')
 

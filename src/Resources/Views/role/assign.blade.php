@@ -19,6 +19,7 @@
             </div>
             <div class="card-body">
                 <form id="permission-assign-form" data-role-id="{{ $role->uuid }}">
+                    @csrf
                     <div class="row">
                         @foreach($permissions as $key => $group)
                             <div class="col-md-6">

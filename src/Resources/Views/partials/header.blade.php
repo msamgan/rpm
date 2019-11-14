@@ -8,7 +8,7 @@
             <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
                data-toggle="dropdown"
                href="#" id="userDropdown" role="button">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
             </a>
         </li>
 

@@ -5,7 +5,7 @@
 
 Route::get('/permissions',
     $controllerNamespace . 'PermissionController@index'
-)->name('rpm.permission.list');
+)->name('rpm.permission.list')->middleware('rpm');
 
 Route::get(
     '/load/permissions',

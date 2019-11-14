@@ -4,7 +4,7 @@
  */
 Route::get('/permission-groups', function () {
     return view('rpm::permission.group.list');
-})->name('rpm.permission-group.list');
+})->name('rpm.permission-group.list')->middleware('rpm');
 
 Route::get(
     '/load/permission-groups',
