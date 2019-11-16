@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Msamgan\Rpm\Models\Permission;
 use Msamgan\Rpm\Models\Role;
+use Msamgan\Rpm\Models\RoleMenu;
 use Msamgan\Rpm\Models\RolePermission;
 
 class AssignController extends Controller
@@ -79,10 +80,19 @@ class AssignController extends Controller
         }
 
         foreach ($permissions as $permission) {
+
             RolePermission::query()->create([
                 'role_id' => $role->id,
                 'permission_id' => $permission
             ]);
+
+            $permissionData = Permission::query()->find($permission);
+            if ($permissionData->menu_id) {
+                RoleMenu::query()->updateOrCreate([
+                    'role_id' => $role->id,
+                    'menu_id' => $permissionData->menu_id
+                ]);
+            }
         }
 
         return response()->json([
