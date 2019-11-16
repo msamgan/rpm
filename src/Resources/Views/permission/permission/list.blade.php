@@ -25,6 +25,7 @@
     <!-- /.container-fluid -->
 
     @include('rpm::permission.permission.form')
+    @include('rpm::permission.permission.menu-form')
 
 @endsection
 

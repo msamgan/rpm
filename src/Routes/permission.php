@@ -32,3 +32,8 @@ Route::post(
     $controllerNamespace . 'PermissionController@update'
 )->name('rpm.permission.update');
 
+Route::post(
+    '/store/menu',
+    $controllerNamespace . 'MenuController@store'
+)->name('rpm.permission.menu.store');
+

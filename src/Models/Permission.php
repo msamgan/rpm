@@ -63,7 +63,7 @@ class Permission extends Model
             }
             return implode('<br>', $routeNames);
         })->addColumn('action', function (Permission $permission) {
-            return $permission->editPermission() . $permission->deletePermission();
+            return $permission->menu() . $permission->editPermission() . $permission->deletePermission();
         })->rawColumns(['route_name', 'action'])->make(true);
     }
 
@@ -75,6 +75,18 @@ class Permission extends Model
         return '<button type="button" class="btn btn-primary btn-sm btn-sm btn-icon-split edit-permission" data-id="' . $this->uuid . '">
                         <span class="icon text-white-50"><i class="fa fa-edit"></i></span>
                         <span class="text">Edit</span>
+                    </button>';
+    }
+
+    /**
+     * @return string
+     */
+    private function menu(): string
+    {
+        return '<button type="button" class="btn btn-info btn-sm btn-sm btn-icon-split mr-2 permission-menu" data-toggle="modal"
+                data-target="#menu-form-modal" data-id="' . $this->uuid . '">
+                        <span class="icon text-white-50"><i class="fa fa-list"></i></span>
+                        <span class="text">Add Menu</span>
                     </button>';
     }
 
