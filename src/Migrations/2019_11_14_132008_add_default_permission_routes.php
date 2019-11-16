@@ -74,6 +74,16 @@ class AddDefaultPermissionRoutes extends Migration
         ]);
 
         PermissionRoute::query()->create([
+            'permission_id' => 2,
+            'route_name' => 'rpm.permission.menu.store'
+        ]);
+
+        PermissionRoute::query()->create([
+            'permission_id' => 2,
+            'route_name' => 'rpm.permission.menu.show'
+        ]);
+
+        PermissionRoute::query()->create([
             'permission_id' => 3,
             'route_name' => 'rpm.permission-group.list'
         ]);
