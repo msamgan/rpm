@@ -19,6 +19,20 @@ class Menu extends Model
         $data['permission_id'] = app(Permission::class)
             ->getByUuid($data['permission_uuid'])->id;
 
+        /**
+         * if remove menu request is there....
+         */
+        if (isset($data['removeMenu'])) {
+            Menu::query()->where('permission_id', $data['permission_id'])->delete();
+            Permission::query()->where('id', $data['permission_id'])->update([
+                'menu_id' => null
+            ]);
+
+            return response()->json([
+                'status' => true
+            ]);
+        }
+
         $validatedData = Validator::make(
             $data, [
                 'permission_id' => [

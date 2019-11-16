@@ -32,6 +32,18 @@
                                placeholder="Enter menu icon">
                         <small id="iconHelp" class="form-text text-muted">An unique but optional icon for the menu</small>
                     </div>
+
+                    <div class="form-group" id="removeMenuSection" style="display: none">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="removeMenu" name="removeMenu">
+                            <label class="form-check-label text-danger"
+                                   for="removeMenu">
+                                Remove Menu
+                                <br>
+                                <small style="font-size: 70%" class="text-danger" >Menu will be deleted from system (non recoverable)</small>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Modal footer -->
