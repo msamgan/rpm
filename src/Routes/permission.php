@@ -37,3 +37,8 @@ Route::post(
     $controllerNamespace . 'MenuController@store'
 )->name('rpm.permission.menu.store');
 
+Route::get(
+    '/menu/{id}',
+    $controllerNamespace . 'MenuController@show'
+)->name('rpm.permission.menu.show');
+

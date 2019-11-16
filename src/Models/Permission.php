@@ -70,23 +70,31 @@ class Permission extends Model
     /**
      * @return string
      */
-    private function editPermission(): string
+    private function menu(): string
     {
-        return '<button type="button" class="btn btn-primary btn-sm btn-sm btn-icon-split edit-permission" data-id="' . $this->uuid . '">
-                        <span class="icon text-white-50"><i class="fa fa-edit"></i></span>
-                        <span class="text">Edit</span>
+        if (!$this->menu_id) {
+            return '<button type="button" class="btn btn-info btn-sm btn-sm btn-icon-split mr-2 permission-menu" data-toggle="modal"
+                data-target="#menu-form-modal" data-id="' . $this->uuid . '">
+                        <span class="icon text-white-50"><i class="fa fa-list"></i></span>
+                        <span class="text">Add Menu</span>
+                    </button>';
+        }
+
+        return '<button type="button" class="btn btn-success btn-sm btn-sm btn-icon-split mr-2 permission-menu update-menu" data-toggle="modal"
+                data-target="#menu-form-modal" data-id="' . $this->uuid . '" data-menu-id='. $this->menu_id .'>
+                        <span class="icon text-white-50"><i class="fa fa-list"></i></span>
+                        <span class="text">Update Menu</span>
                     </button>';
     }
 
     /**
      * @return string
      */
-    private function menu(): string
+    private function editPermission(): string
     {
-        return '<button type="button" class="btn btn-info btn-sm btn-sm btn-icon-split mr-2 permission-menu" data-toggle="modal"
-                data-target="#menu-form-modal" data-id="' . $this->uuid . '">
-                        <span class="icon text-white-50"><i class="fa fa-list"></i></span>
-                        <span class="text">Add Menu</span>
+        return '<button type="button" class="btn btn-primary btn-sm btn-sm btn-icon-split edit-permission" data-id="' . $this->uuid . '">
+                        <span class="icon text-white-50"><i class="fa fa-edit"></i></span>
+                        <span class="text">Edit</span>
                     </button>';
     }
 

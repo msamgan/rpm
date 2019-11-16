@@ -32,4 +32,17 @@ class MenuController extends Controller
         return $this->menu
             ->store($request->except('_token'));
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function show(Request $request): JsonResponse
+    {
+        return response()->json([
+            'status' => true,
+            'data' => $this->menu
+                ->find($request->id)
+        ]);
+    }
 }

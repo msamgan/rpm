@@ -43,13 +43,22 @@ class Menu extends Model
             ]);
         }
 
-        if (Menu::query()->updateOrCreate([
+        $menu = Menu::query()->updateOrCreate([
             'permission_id' => $data['permission_id']
         ], [
             'name' => $data['name'],
             'route' => $data['route'],
             'icon' => $data['icon']
-        ])) {
+        ]);
+
+        if ($menu) {
+
+            Permission::query()
+                ->where('id', $data['permission_id'])
+                ->update([
+                    'menu_id' => $menu->id
+            ]);
+
             return response()->json([
                 'status' => true
             ]);
