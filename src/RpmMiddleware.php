@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Msamgan\Rpm\Models\Permission;
 use Msamgan\Rpm\Models\RolePermission;
-use Msamgan\Rpm\Models\UserRole;
 
 class RpmMiddleware
 {
@@ -55,9 +54,8 @@ class RpmMiddleware
      */
     private function getCurrentRole()
     {
-        $role = UserRole::query()
-            ->where('user_id', Auth::id())
-            ->first();
+        $role = Auth::user()
+            ->currentRole();
 
         if (!$role) {
             abort(403, 'No role found, please assign at least one role to this user...');
