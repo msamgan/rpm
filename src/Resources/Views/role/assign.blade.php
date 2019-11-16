@@ -22,7 +22,7 @@
                     @csrf
                     <div class="row">
                         @foreach($permissions as $key => $group)
-                            <div class="col-md-6">
+                            <div class="col-md-2">
                                 <button class="btn btn-primary mb-2" type="button" data-toggle="collapse"
                                         data-target="#collapse-{{ $key }}" aria-expanded="false"
                                         aria-controls="collapse-{{ $key }}">
@@ -32,7 +32,7 @@
                                     <div class="card card-body">
                                         @foreach($group as $permission)
                                             <div class="row mt-2">
-                                                <div class="col-md-4">
+                                                <div class="col-md-12">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox"
                                                                value="{{ $permission->id }}"

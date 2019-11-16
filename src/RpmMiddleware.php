@@ -29,11 +29,16 @@ class RpmMiddleware
 
         $allowed = false;
         foreach ($permissions as $permission) {
-            foreach (Permission::query()->find($permission)->permissionRoutes as $route) {
-                if ($request->route()->getName() == $route->route_name) {
-                    $allowed = true;
-                    break;
-                }
+            $routeList = Permission::query()->find($permission)->permissionRoutes->pluck('route_name');
+            $routeList = $routeList ? $routeList->toArray() : [];
+
+            if (in_array(
+                $request->route()->getName(),
+                $routeList
+                )
+            ) {
+                $allowed = true;
+                break;
             }
         }
 
