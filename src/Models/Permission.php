@@ -36,6 +36,13 @@ class Permission extends Model
         return $this->hasMany(PermissionRoute::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
 
     /**
      * @return Builder[]|Collection
@@ -63,14 +70,14 @@ class Permission extends Model
             }
             return implode('<br>', $routeNames);
         })->addColumn('action', function (Permission $permission) {
-            return $permission->menu() . $permission->editPermission() . $permission->deletePermission();
+            return $permission->getMenu() . $permission->editPermission() . $permission->deletePermission();
         })->rawColumns(['route_name', 'action'])->make(true);
     }
 
     /**
      * @return string
      */
-    private function menu(): string
+    private function getMenu(): string
     {
         if (!$this->menu_id) {
             return '<button type="button" class="btn btn-info btn-sm btn-sm btn-icon-split mr-2 permission-menu" data-toggle="modal"
@@ -81,7 +88,7 @@ class Permission extends Model
         }
 
         return '<button type="button" class="btn btn-success btn-sm btn-sm btn-icon-split mr-2 permission-menu update-menu" data-toggle="modal"
-                data-target="#menu-form-modal" data-id="' . $this->uuid . '" data-menu-id='. $this->menu_id .'>
+                data-target="#menu-form-modal" data-id="' . $this->uuid . '" data-menu-id=' . $this->menu_id . '>
                         <span class="icon text-white-50"><i class="fa fa-list"></i></span>
                         <span class="text">Update Menu</span>
                     </button>';

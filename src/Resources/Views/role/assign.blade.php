@@ -42,8 +42,14 @@
                                                         <label class="form-check-label"
                                                                for="check-{{ $permission->id }}">
                                                             {{ $permission->name }}
+                                                            @if($permission->menu)
+                                                                <br>
+                                                                <strong>Menu:</strong> {{ $permission->menu->name }} <small>({{ url('/' . $permission->menu->route) }})</small>
+                                                            @endif
                                                             <br>
-                                                            <small style="font-size: 70%">{{ $permission->description }}</small>
+                                                            <small style="font-size: 70%">
+                                                                {{ $permission->description }}
+                                                            </small>
                                                         </label>
                                                     </div>
                                                 </div>
