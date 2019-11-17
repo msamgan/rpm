@@ -27,7 +27,8 @@ if (!function_exists('fetchMenus()')) {
             ->get()->map(function ($item) {
                 return (object) [
                     'name' => $item->menu->name,
-                    'route' => url('/' . $item->menu->route)
+                    'route' => $item->menu->route,
+                    'icon' => $item->menu->icon
                 ];
             });
     }
