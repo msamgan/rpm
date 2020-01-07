@@ -3,7 +3,7 @@
 @section('title', 'Permission')
 
 @section('css')
-    <link href="{{ asset('Rpm/Assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('Rpm/Assets/defaults/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -30,7 +30,7 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('Rpm/Assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('Rpm/Assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('Rpm/Assets/defaults/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('Rpm/Assets/defaults/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('Rpm/Assets/js/permission.js') }}"></script>
 @endsection
