@@ -25,7 +25,7 @@ if (!function_exists('fetchMenus()')) {
         return RoleMenu::query()
             ->where('role_id', auth()->user()->currentRole()->id)
             ->get()->map(function ($item) {
-                return (object) [
+                return (object)[
                     'name' => $item->menu->name,
                     'route' => $item->menu->route,
                     'icon' => $item->menu->icon
