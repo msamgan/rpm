@@ -1,0 +1,33 @@
+{
+    "name": "msamgan/rpm",
+    "description": "a role, permission and menu menu manager",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "msamgan",
+            "email": "mohdsamgankhan@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Msamgan\\Rpm\\": "src/"
+        },
+        "files": [
+            "src/rpmMethods.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Msamgan\\Rpm\\RpmServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "msamgan/udvi": "^1.0",
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "spatie/laravel-sluggable": "^2.2"
+    }
+}
