@@ -24,6 +24,15 @@ class Role extends Model
     protected $guarded = [];
 
     /**
+     * @param $roleSlug
+     * @return Builder|Model|object|null
+     */
+    public static function getBySlug($roleSlug)
+    {
+        return Role::query()->where('slug', $roleSlug)->first();
+    }
+
+    /**
      * @return string
      */
     public function getRouteKeyName()
@@ -34,7 +43,7 @@ class Role extends Model
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
