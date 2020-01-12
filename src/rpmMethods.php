@@ -18,12 +18,20 @@ if (!function_exists('fetchPermissionGroupById')) {
 
 if (!function_exists('fetchMenus()')) {
     /**
-     * @return Builder[]|Collection
+     * @return Builder[]|Collection|\Illuminate\Support\Collection|object
      */
     function fetchMenus()
     {
+        $currentRole = auth()
+            ->user()
+            ->currentRole();
+
+        if (!$currentRole) {
+            return (object)[];
+        }
+
         return RoleMenu::query()
-            ->where('role_id', auth()->user()->currentRole()->id)
+            ->where('role_id', $currentRole->id)
             ->get()->map(function ($item) {
                 return (object)[
                     'name' => $item->menu->name,

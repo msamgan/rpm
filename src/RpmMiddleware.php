@@ -61,7 +61,7 @@ class RpmMiddleware
             abort(403, 'No role found, please assign at least one role to this user...');
         }
 
-        return $role->role;
+        return $role;
     }
 
     /**
