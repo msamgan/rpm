@@ -23,6 +23,15 @@ class Permission extends Model
     protected $guarded = [];
 
     /**
+     * @param $permissionSlug
+     * @return Builder|Model|object|null
+     */
+    public static function getBySlug($permissionSlug)
+    {
+        return Permission::query()->where('slug', $permissionSlug)->first();
+    }
+
+    /**
      * Get the options for generating the slug.
      */
     public function getSlugOptions() : SlugOptions

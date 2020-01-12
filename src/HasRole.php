@@ -5,7 +5,9 @@ namespace Msamgan\Rpm;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Msamgan\Rpm\Models\Permission;
 use Msamgan\Rpm\Models\Role;
+use Msamgan\Rpm\Models\RolePermission;
 use Msamgan\Rpm\Models\UserRole;
 
 /**
@@ -13,23 +15,6 @@ use Msamgan\Rpm\Models\UserRole;
  */
 trait HasRole
 {
-    /**
-     * @return bool|mixed
-     */
-    public function currentRole()
-    {
-        $userRole = UserRole::query()
-            ->where('user_id', $this->id)
-            ->where('active', 1)
-            ->first();
-
-        if (!$userRole) {
-            return false;
-        }
-
-        return $userRole->role;
-    }
-
     /**
      * @return Builder[]|\Illuminate\Database\Eloquent\Collection|Collection
      */
@@ -113,5 +98,44 @@ trait HasRole
             $this->id,
             Role::getBySlug($roleSlug)->id
         );
+    }
+
+    /**
+     * @param $permissionSlug
+     * @return bool
+     */
+    public function ifHasPermission($permissionSlug)
+    {
+        $currentRole = $this->currentRole();
+        if (!$currentRole) {
+            return false;
+        }
+
+        $permission = Permission::getBySlug($permissionSlug);
+        if (!$permission) {
+            return false;
+        }
+
+        return RolePermission::query()->where([
+            'role_id' => $currentRole->id,
+            'permission_id' => $permission->id,
+        ])->first() ? true : false;
+    }
+
+    /**
+     * @return bool|mixed
+     */
+    public function currentRole()
+    {
+        $userRole = UserRole::query()
+            ->where('user_id', $this->id)
+            ->where('active', 1)
+            ->first();
+
+        if (!$userRole) {
+            return false;
+        }
+
+        return $userRole->role;
     }
 }
