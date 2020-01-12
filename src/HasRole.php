@@ -4,7 +4,6 @@ namespace Msamgan\Rpm;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 use Msamgan\Rpm\Models\Role;
 use Msamgan\Rpm\Models\UserRole;
 
@@ -31,6 +30,18 @@ trait HasRole
     public function addRole($roleSlug)
     {
         return UserRole::addRole(
+            $this->id,
+            Role::getBySlug($roleSlug)->id
+        );
+    }
+
+    /**
+     * @param $roleSlug
+     * @return mixed
+     */
+    public function removeRole($roleSlug)
+    {
+        return UserRole::removeRole(
             $this->id,
             Role::getBySlug($roleSlug)->id
         );

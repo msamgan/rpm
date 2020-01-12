@@ -11,8 +11,8 @@ class UserRole extends Model
     protected $guarded = [];
 
     /**
-     * @param $user
-     * @param $role
+     * @param $userId
+     * @param $roleId
      * @return Builder|Model
      */
     public static function addRole($userId, $roleId)
@@ -21,6 +21,19 @@ class UserRole extends Model
             'user_id' => $userId,
             'role_id' => $roleId,
         ]);
+    }
+
+    /**
+     * @param $userId
+     * @param $roleId
+     * @return mixed
+     */
+    public static function removeRole($userId, $roleId)
+    {
+        return UserRole::query()->where([
+            'user_id' => $userId,
+            'role_id' => $roleId,
+        ])->delete();
     }
 
     /**
