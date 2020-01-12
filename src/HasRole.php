@@ -46,6 +46,19 @@ trait HasRole
 
     /**
      * @param $roleSlug
+     * @return bool
+     */
+    public function ifActiveRole($roleSlug)
+    {
+        return UserRole::query()->where([
+            'user_id' => $this->id,
+            'role_id' => Role::getBySlug($roleSlug)->id,
+            'active' => 1,
+        ])->first() ? true : false;
+    }
+
+    /**
+     * @param $roleSlug
      * @return Builder|Model|int
      */
     public function setRole($roleSlug)
