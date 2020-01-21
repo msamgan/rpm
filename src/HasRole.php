@@ -104,7 +104,7 @@ trait HasRole
      * @param $permissionSlug
      * @return bool
      */
-    public function ifHasPermission($permissionSlug)
+    public function hasPermission($permissionSlug)
     {
         $currentRole = $this->currentRole();
         if (!$currentRole) {
