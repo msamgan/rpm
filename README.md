@@ -2,7 +2,7 @@
 
 role, permission and menu
 
-##Installation
+## Installation
 
 RPM uses a [composer](https://getcomposer.org/) based installation system, use the following command to install.
 
@@ -10,7 +10,7 @@ RPM uses a [composer](https://getcomposer.org/) based installation system, use t
     composer require msamgan/rpm
 ```
 
-##Configuration
+## Configuration
 
 To configure the package use the following commands.
 
@@ -36,9 +36,9 @@ add the below lines of code to **Http/Kernel.php**
     'rpm' => RpmMiddleware::class //add this in $routeMiddleware
 ```
 
-##How to Use
+## How to Use
 
-#####NOTE : rpm comes with a default role "Developer", please assign this role to on user to ger started. To do that add a manual entry in user_roles with role_id  = 1 and user_id = "what so ever is your user ID."
+##### NOTE : rpm comes with a default role "Developer", please assign this role to on user to ger started. To do that add a manual entry in user_roles with role_id  = 1 and user_id = "what so ever is your user ID."
 
 ```composer
     visit: https://domain.xyz/roles
@@ -49,11 +49,11 @@ add the below lines of code to **Http/Kernel.php**
 1. Individual roles will be create and manages here. 
 2. Assigning Permission to created Roles
 
-####Create Permission Groups
+#### Create Permission Groups
 
 All the permissions we will create will be grouped together in these groups.
 
-####Create Permissions
+#### Create Permissions
 
 
 
